@@ -8,14 +8,17 @@ export default function TextForm(props) {
   const handleTexttoUpperCase = () => {
     setText(text.toUpperCase());
     console.log(textSummary.value);
+    props.showAlert("Converted to UpperCase..", "success");
   };
 
   const handleTexttoLowerCase = () => {
     setText(text.toLowerCase());
+    props.showAlert("Converted to LowerCase..", "success");
   };
 
   const handleClearText = () => {
     setText("");
+    props.showAlert("Text Clered..", "success");
   };
 
   const handleOnChange = (event) => {
@@ -26,20 +29,43 @@ export default function TextForm(props) {
     textSummary.select();
 
     /* For mobile devices */
-    // textSummary.setSelectionRange(0, 99999);
+    textSummary.setSelectionRange(0, 99999);
 
     /* Copy the text inside the text field */
     navigator.clipboard.writeText(textSummary.value);
     // alert("Text Copied");
+    props.showAlert("Text Copied..", "success");
   };
   const handleRemoveExtraSpaces = () => {
     let newText = text.split(/[ ]+/);
     // console.log(newText);
     setText(newText.join(" "));
+    props.showAlert("Extra spaces removed..", "success");
   };
+
+  const reverseCase = () => {
+    let newText = text.split("");
+    let newArr = [];
+    //return newText;
+    for (let i = 0; i < newText.length; i++) {
+      if (newText[i] === newText[i].toLowerCase()) {
+        newArr.push(newText[i].toUpperCase());
+      } else if (newText[i] === newText[i].toUpperCase()) {
+        newArr.push(newText[i].toLowerCase());
+      }
+    }
+    setText(newArr.join(""));
+    props.showAlert("case reversed..", "success");
+  };
+
   return (
     <>
-      <div className='container my-3'>
+      <div
+        className='container'
+        style={{
+          color: props.mode === "dark" ? "white" : "black",
+        }}
+      >
         <form>
           <h1>{props.heading}</h1>
           <div className='form-group my-3'>
@@ -48,8 +74,12 @@ export default function TextForm(props) {
               id='myBox'
               placeholder='Enter Text Here...'
               value={text}
-              rows='7'
+              rows='8'
               onChange={handleOnChange}
+              style={{
+                backgroundColor: props.mode === "dark" ? "#010614" : "white",
+                color: props.mode === "dark" ? "white" : "black",
+              }}
             ></textarea>
           </div>
           <div className='d-flex'>
@@ -86,16 +116,20 @@ export default function TextForm(props) {
               className='btn btn-primary ms-2'
               onClick={handleRemoveExtraSpaces}
             >
-              <i class='fa-solid fa-hand-scissors'></i> RemoveExtraSpaces
+              <i className='fa-solid fa-hand-scissors'></i> RemoveExtraSpaces
+            </button>
+            <button
+              type='button'
+              className='btn btn-primary ms-2'
+              onClick={reverseCase}
+            >
+              <i className='fa-solid fa-rotate'></i> Reverse Case
             </button>
           </div>
         </form>
-      </div>
-      <div className='container my-3'>
-        <p className='h2'>Text Summary </p>
-
+        <p className='h2 mt-2'>Text Summary </p>
         <p className='h4'>
-          {text.split(" ").length} Words and {text.length} Characters
+          {text.split(/\s+/).length} Words and {text.length} Characters
         </p>
       </div>
     </>
