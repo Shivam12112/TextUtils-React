@@ -7,7 +7,6 @@ export default function TextForm(props) {
 
   const handleTexttoUpperCase = () => {
     setText(text.toUpperCase());
-    console.log(textSummary.value);
     props.showAlert("Converted to UpperCase..", "success");
   };
 
@@ -33,12 +32,10 @@ export default function TextForm(props) {
 
     /* Copy the text inside the text field */
     navigator.clipboard.writeText(textSummary.value);
-    // alert("Text Copied");
     props.showAlert("Text Copied..", "success");
   };
   const handleRemoveExtraSpaces = () => {
     let newText = text.split(/[ ]+/);
-    // console.log(newText);
     setText(newText.join(" "));
     props.showAlert("Extra spaces removed..", "success");
   };
@@ -46,7 +43,6 @@ export default function TextForm(props) {
   const reverseCase = () => {
     let newText = text.split("");
     let newArr = [];
-    //return newText;
     for (let i = 0; i < newText.length; i++) {
       if (newText[i] === newText[i].toLowerCase()) {
         newArr.push(newText[i].toUpperCase());
@@ -61,20 +57,20 @@ export default function TextForm(props) {
   return (
     <>
       <div
-        className='container'
+        className="container"
         style={{
           color: props.mode === "dark" ? "white" : "#042743",
         }}
       >
         <form>
           <h1>{props.heading}</h1>
-          <div className='form-group my-3'>
+          <div className="form-group my-3">
             <textarea
-              className='form-control'
-              id='myBox'
-              placeholder='Enter Text Here...'
+              className="form-control"
+              id="myBox"
+              placeholder="Enter Text Here..."
               value={text}
-              rows='8'
+              rows="8"
               onChange={handleOnChange}
               style={{
                 backgroundColor: props.mode === "dark" ? "#010614" : "white",
@@ -82,53 +78,53 @@ export default function TextForm(props) {
               }}
             ></textarea>
           </div>
-          <div className='d-flex'>
+          <div className="d-flex">
             <button
-              type='button'
-              className='btn btn-primary'
+              type="button"
+              className="btn btn-primary"
               onClick={handleTexttoUpperCase}
             >
-              <i className='fa-solid fa-angles-up'></i> UpperCase
+              <i className="fa-solid fa-angles-up"></i> UpperCase
             </button>
             <button
-              type='button'
-              className='btn btn-primary ms-2'
+              type="button"
+              className="btn btn-primary ms-2"
               onClick={handleTexttoLowerCase}
             >
-              <i className='fa-solid fa-angles-down'></i> LowerCase
+              <i className="fa-solid fa-angles-down"></i> LowerCase
             </button>
             <button
-              type='button'
-              className='btn btn-primary ms-2'
+              type="button"
+              className="btn btn-primary ms-2"
               onClick={handleClearText}
             >
-              <i className='fa-solid fa-eraser'></i> Clear Text
+              <i className="fa-solid fa-eraser"></i> Clear Text
             </button>
             <button
-              type='button'
-              className='btn btn-primary ms-2'
+              type="button"
+              className="btn btn-primary ms-2"
               onClick={handleCopy}
             >
-              <i className='fa-solid fa-copy'></i> Copy Text
+              <i className="fa-solid fa-copy"></i> Copy Text
             </button>
             <button
-              type='button'
-              className='btn btn-primary ms-2'
+              type="button"
+              className="btn btn-primary ms-2"
               onClick={handleRemoveExtraSpaces}
             >
-              <i className='fa-solid fa-hand-scissors'></i> RemoveExtraSpaces
+              <i className="fa-solid fa-hand-scissors"></i> RemoveExtraSpaces
             </button>
             <button
-              type='button'
-              className='btn btn-primary ms-2'
+              type="button"
+              className="btn btn-primary ms-2"
               onClick={reverseCase}
             >
-              <i className='fa-solid fa-rotate'></i> Reverse Case
+              <i className="fa-solid fa-rotate"></i> Reverse Case
             </button>
           </div>
         </form>
-        <p className='h2 mt-2'>Text Summary </p>
-        <p className='h4'>
+        <p className="h2 mt-2">Text Summary </p>
+        <p className="h4">
           {
             text.split(/\s+/).filter((element) => {
               return element.length !== 0;
@@ -136,7 +132,7 @@ export default function TextForm(props) {
           }{" "}
           Words and {text.length} Characters
         </p>
-        <p className='h5'>
+        <p className="h5">
           {(
             0.008 *
             60 *
